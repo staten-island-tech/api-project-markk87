@@ -1,4 +1,6 @@
-const URL = `https://api.breakingbadquotes.xyz/v1/quotes`
+const URL = `https://nrs.harvard.edu/urn-3:HUAM:OCP16703_dynmc?height=150&width=150`
+
+
 
 async function getData(URL) {
   try {
@@ -7,13 +9,13 @@ async function getData(URL) {
       console.log(response);
       const data = await response.json();
       console.log(data);
-      document.querySelector("h1").textContent == data.quote
-      document.querySelector("h2").textContent == data.author
+      document.querySelector("h1").textContent = data.content;
+    
       
     
-     
+      
   } catch (error) {
+    console.log(error)
   }
-  
 }
 getData(URL);
