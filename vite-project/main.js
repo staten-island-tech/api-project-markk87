@@ -1,4 +1,4 @@
-const URL = `https://nrs.harvard.edu/urn-3:HUAM:OCP16703_dynmc?height=150&width=150`
+const URL = `https://fortnite-api.com/v1/map`
 
 
 
@@ -9,7 +9,7 @@ async function getData(URL) {
       console.log(response);
       const data = await response.json();
       console.log(data);
-      document.querySelector("h1").textContent = data.content;
+      document.querySelector("h1").textContent = data.pois;
     
       
     
