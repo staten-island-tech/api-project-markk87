@@ -1,5 +1,6 @@
-const URL = `https://fortnite-api.com/v1/map`
+const URL = `https://data.cityofnewyork.us/resource/ez4e-fazm.json`
 const imageContainer = document.querySelector(".imageContainer")
+
 
 
 async function getData(URL) {
@@ -10,14 +11,14 @@ async function getData(URL) {
     const data = await response.json();
     console.log(data);
 
-    const pois = data.data.pois;
+    const schoolYear = data.school_year;
 
-    pois.forEach(imageURL => {
-      const imgEl = document.createElement("p");
-      imgEl.src = imageURL;
-      imgEl.alt = "Fortnite Map";
+    schoolYear.forEach(el => {
+      const textEl = document.createElement("p");
+      textEl.textContent = el.name;
+      
 
-       imageContainer.appendChild(imgEl)
+      imageContainer.appendChild(textEl);
     });
       
       
