@@ -1,6 +1,6 @@
-const URL = `https://data.cityofnewyork.us/resource/ez4e-fazm.json`
-const imageContainer = document.querySelector(".imageContainer")
-
+const URL = `https://data.cityofnewyork.us/resource/nc67-uf89.json`
+const imageContainer = document.querySelector(".imageContainer");
+    const plateForm = document.getElementById("plateForm");
 
 
 async function getData(URL) {
@@ -10,24 +10,22 @@ async function getData(URL) {
     console.log(response);
     const data = await response.json();
     console.log(data);
+    imageContainer.innerHTML = "";
 
-    const schoolYear = data.school_year;
-
-    schoolYear.forEach(el => {
+    data.forEach(el => {
       const textEl = document.createElement("p");
-      textEl.textContent = el.name;
-      
-
+      textEl.textContent = `Plate: ${el.plate}, Violation: ${el.violation}, Date: ${el.issue_date}`;
       imageContainer.appendChild(textEl);
     });
-      
-      
-     
-    
-      
   } catch (error) {
-    console.log(error)
+    console.log("Sorry, we could not find what you are looking for");
   }
 }
 getData(URL);
+
+plateForm.addEventListener("submit", function (event) {
+  event.preventDefault();
+  const plateInput = document.getElementById("plateNumber").value;
+  getData(`${URL}?plate=${plateInput}`);
+});
 
