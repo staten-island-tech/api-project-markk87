@@ -16,6 +16,10 @@ async function getData(URL) {
       const textEl = document.createElement("p");
       textEl.textContent = `Plate: ${el.plate}, Violation: ${el.violation}, Date: ${el.issue_date}`;
       imageContainer.appendChild(textEl);
+
+      const button = document.createElement("button");
+      button.textContent = "See More";
+      imageContainer.appendChild(button);
     });
   } catch (error) {
     console.log("Sorry, we could not find what you are looking for");

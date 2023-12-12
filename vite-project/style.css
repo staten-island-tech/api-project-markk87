@@ -5,3 +5,14 @@ h1 {
 h2 {
   font-size: 2rem;
 }
+
+.imageContainer {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+
+p {
+  
+}
