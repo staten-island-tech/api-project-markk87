@@ -33,3 +33,7 @@ plateForm.addEventListener("submit", function (event) {
   getData(`${URL}?plate=${plateInput}`);
 });
 
+button.addEventListener("click", function (){
+  
+})
+
