@@ -1,6 +1,6 @@
 const URL = `https://data.cityofnewyork.us/resource/nc67-uf89.json`
 const imageContainer = document.querySelector(".imageContainer");
-    const plateForm = document.getElementById("plateForm");
+const plateForm = document.getElementById("plateForm");
 
 
 async function getData(URL) {
