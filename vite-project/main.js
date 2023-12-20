@@ -2,6 +2,7 @@ const URL = `https://data.cityofnewyork.us/resource/nc67-uf89.json` //camera vio
 const crashURL = `https://data.cityofnewyork.us/resource/bm4k-52h4.json` //vehicle thing a ma bob
 const imageContainer = document.querySelector(".imageContainer");
 const plateForm = document.getElementById("plateForm");
+const seeMoreButton = document.querySelector("button");
 
 
 const DOMSelectors = {
@@ -25,34 +26,40 @@ async function getCrashData(crashURL) {
 
 getCrashData();
 
-// async function getData(URL) {
-//   try {
-//     const response = await fetch(URL);
+async function getData(URL) {
+   try {
+     const response = await fetch(URL);
       
-//     console.log(response);
-//     const data = await response.json();
-//     console.log(data);
-//     imageContainer.innerHTML = "";
+     console.log(response);
+    const data = await response.json();
+     console.log(data);
+     imageContainer.innerHTML = "";
 
-//     data.forEach(el => {
-//       const textEl = document.createElement("p");
-//       textEl.textContent = `Plate: ${el.plate}, Violation: ${el.violation}, Date: ${el.issue_date}`;
-//       imageContainer.appendChild(textEl);
+    data.forEach(el => {
+      const textEl = document.createElement("p");
+      textEl.textContent = `Plate: ${el.plate}, Violation: ${el.violation}, Date: ${el.issue_date}`;
+      imageContainer.appendChild(textEl);
 
       
-//     });
-//   } catch (error) {
-//     console.log("Sorry, we could not find what you are looking for");
-//   }
-// }
-// getData(URL);
+    });
+  } catch (error) {
+    console.log("Sorry, we could not find what you are looking for");
+  }
+}
+getData(URL);
 
-// plateForm.addEventListener("submit", function (event) {
-//   event.preventDefault();
-//   const plateInput = document.getElementById("plateNumber").value;
-//   getData(`${URL}?plate=${plateInput}`);
-// });
+plateForm.addEventListener("submit", function (event) {
+  event.preventDefault();
+  const plateInput = document.getElementById("plateNumber").value;
+  getData(`${URL}?plate=${plateInput}`);
+});
 
+
+// seeMoreButton.addEventListener("click", function(e) {
+//   e.preventDefault();
+//   const buttonClick = document.getElementById("plateNumber").value;
+//   getCrashData(`${crashURL}?`)
+// })
 
 // DOMSelectors.button.addEventListener("click", function(e){
 //   e.preventDefault();
