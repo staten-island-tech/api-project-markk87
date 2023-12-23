@@ -1,4 +1,6 @@
-const URL = `https://translate.googleapis.com`
+const URL = `https://collectionapi.metmuseum.org/public/collection/v1/departments`
+
+ 
 
 async function getData (URL) {
   try {
