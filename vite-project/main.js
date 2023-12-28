@@ -1,12 +1,17 @@
-const URL = `https://api.vehicledatabases.com/auction/{vin}`
+const URL = `https://v6.exchangerate-api.com/v6/32a42142b33a098c2cee116a/latest/USD`
 
- 
+const DOMSelectors = {
+  mainButton: document.querySelector("#activationButton")
+}
 
 async function getData (URL) {
   try {
     const response = await fetch(URL);
 
     console.log(response);
+
+    const data = await response.json();
+    console.log(data);
   } catch (error) {
     console.log("Nope.")
   }
@@ -14,12 +19,34 @@ async function getData (URL) {
 
 getData(URL);
 
+async function convertUSD() {
+  const usdAmount = document.getElementById('usdAmount').value;
+  const currencyCode = document.getElementById('currencyCode').value;
 
+  const apiKey = 'YOUR_EXCHANGE_RATE_API_KEY'; // Replace with your actual API key
+  const apiUrl = `https://open.er-api.com/v6/latest/USD?apikey=${apiKey}`;
 
+  try {
+    const response = await fetch(apiUrl);
+    const data = await response.json();
 
+    if (data.result === 'success') {
+      const exchangeRate = data.rates[currencyCode];
+      const convertedAmount = (usdAmount * exchangeRate).toFixed(2);
+      document.getElementById('result').innerText = `${usdAmount} USD is approximately ${convertedAmount} ${currencyCode}`;
+    } else {
+      document.getElementById('result').innerText = 'Failed to fetch exchange rates. Please try again later.';
+    }
+  } catch (error) {
+    console.error('Error fetching exchange rates:', error);
+    document.getElementById('result').innerText = 'An error occurred. Please try again later.';
+  }
+}
 
-
-
+DOMSelectors.mainButton.addEventListener("click", function(event) {
+  event.preventDefault();
+  convertUSD();
+})
 
 
 
