@@ -2,7 +2,7 @@ import { gsap } from "gsap";
 
 
 gsap.from('#result', {duration: 2, x: '-750%', ease: 'elast'});
-gsap.from('#usdToCurrencyForm', {duration: 3, y: '-200%', ease: 'expo'})
+gsap.from('#usdToCurrencyForm', {duration: 3, y: '-200%', ease: 'expo'});
 
 
 
@@ -11,26 +11,32 @@ async function convertUSD() {
   const usdAmount = document.getElementById('usdAmount').value;
   const currencyCode = document.getElementById('currencyCode').value;
 
-  const apiKey = 'YOUR_EXCHANGE_RATE_API_KEY'; // Replace with your actual API key
-  const apiUrl = `https://open.er-api.com/v6/latest/USD?apikey=${apiKey}`;
+  
+  const apiUrl = `https://open.er-api.com/v6/latest/USD?apikey=`;
 
   try {
     const response = await fetch(apiUrl);
     const data = await response.json();
 
+    
+
     if (data.result === 'success') {
       const exchangeRate = data.rates[currencyCode];
       const convertedAmount = (usdAmount * exchangeRate).toFixed(2); // this should round the number to 2 decimal places so ppl dont get a huge amount
       document.getElementById('result').textContent = `${usdAmount} USD is approximately ${convertedAmount} ${currencyCode}`;
+  
     } else {
       document.getElementById('result').textContent = 'Failed to fetch exchange rates. Please try again later.';
     }
   } catch (error) {
     if (error != 200 && error >= 400) {
       document.getElementById('result').textcontent = 'We could not find what you were looking for'
-    }
+    } else {
+
+    
     console.error('Error fetching exchange rates:', error);
-    document.getElementById('result').textContent = 'An error occurred. Please try again later.';
+    document.getElementById('result').textContent = 'An error occurred. Please make sure you entered all the values.';
+    }
   }
 }
 
@@ -41,7 +47,10 @@ document.querySelector(".button").addEventListener("click", function(event) {
 
 document.getElementById('currencyCode').value = '';
 
-
+// document.getElementById('result').addEventListener("click", function() {
+//   e.preventDefault();
+//   gsap.fromTo('#result', {opacity: 1, x: '0%', scale: 1}, {duration: 2, opacity: 0, scale: 0} );
+// })
 
 
 
