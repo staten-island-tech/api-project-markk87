@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/staten-island-tech/api-project-markk87/issues"
   },
-  "homepage": "https://github.com/staten-island-tech/api-project-markk87#readme"
+  "homepage": "https://github.com/staten-island-tech/api-project-markk87#readme",
+  "dependencies": {
+    "gsap": "^3.12.4"
+  }
 }

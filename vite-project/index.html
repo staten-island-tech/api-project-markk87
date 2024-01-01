@@ -6,7 +6,8 @@
     <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
-    <script src="main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js" defer></script>
+    <script src="main.js" defer></script>
   </head>
   <body>
     
@@ -16,11 +17,12 @@
       
       <label for="currencyCode">Select currency:</label>
       <select id="currencyCode" required>
+        <option value="" selected disabled></option>
         <option value="EUR">Euro (EUR)</option>
         <option value="JPY">Japanese Yen (JPY)</option>
       </select>
   
-      <button type="button" id="activationButton">Convert</button>
+      <button type="button" class="button">Convert</button>
     </form>
   
     <p id="result"></p>
@@ -30,9 +32,14 @@
 
 
 
-<!-- <form id="plateForm">
-      <label for="plateNumber">Enter Plate Number:</label>
-      <input type="text" id="plateNumber" name="plateNumber">
-      <button type="submit">Lookup Violations</button>
-    </form>
-  <button>See More</button> -->
+
+
+
+<script>
+
+
+</script>
+
+
+
+

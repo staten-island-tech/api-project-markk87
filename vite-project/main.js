@@ -1,23 +1,21 @@
-const URL = `https://v6.exchangerate-api.com/v6/32a42142b33a098c2cee116a/latest/USD`
+import { gsap } from "gsap";
 
-const DOMSelectors = {
-  mainButton: document.querySelector("#activationButton")
-}
+gsap.from
 
-async function getData (URL) {
-  try {
-    const response = await fetch(URL);
+// async function getData (URL) {
+//   try {
+//     const response = await fetch(URL);
 
-    console.log(response);
+//     console.log(response);
 
-    const data = await response.json();
-    console.log(data);
-  } catch (error) {
-    console.log("Nope.")
-  }
-}
+//     const data = await response.json();
+//     console.log(data);
+//   } catch (error) {
+//     console.log("Nope.")
+//   }
+// }
 
-getData(URL);
+// getData(URL);
 
 async function convertUSD() {
   const usdAmount = document.getElementById('usdAmount').value;
@@ -32,24 +30,26 @@ async function convertUSD() {
 
     if (data.result === 'success') {
       const exchangeRate = data.rates[currencyCode];
-      const convertedAmount = (usdAmount * exchangeRate).toFixed(2);
-      document.getElementById('result').innerText = `${usdAmount} USD is approximately ${convertedAmount} ${currencyCode}`;
+      const convertedAmount = (usdAmount * exchangeRate).toFixed(2); // this should round the number to 2 decimal places so ppl dont get a huge amount
+      document.getElementById('result').textContent = `${usdAmount} USD is approximately ${convertedAmount} ${currencyCode}`;
     } else {
-      document.getElementById('result').innerText = 'Failed to fetch exchange rates. Please try again later.';
+      document.getElementById('result').textContent = 'Failed to fetch exchange rates. Please try again later.';
     }
   } catch (error) {
+    if (error != 200 && error >= 400) {
+      document.getElementById('result').textcontent = 'We could not find what you were looking for'
+    }
     console.error('Error fetching exchange rates:', error);
-    document.getElementById('result').innerText = 'An error occurred. Please try again later.';
+    document.getElementById('result').textContent = 'An error occurred. Please try again later.';
   }
 }
 
-DOMSelectors.mainButton.addEventListener("click", function(event) {
+document.querySelector(".button").addEventListener("click", function(event) {
   event.preventDefault();
   convertUSD();
 })
 
-
-
+document.getElementById('currencyCode').value = '';
 
 
 

@@ -1,18 +1,5 @@
-h1 {
-  font-size: 1rem;
-}
-
-h2 {
-  font-size: 2rem;
-}
-
-.imageContainer {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-}
-
-
-p {
-  
+#result {
+  margin: 2px 2px 2px 2px;
+  border: 2.5px solid black;
+  display: inline;
 }
