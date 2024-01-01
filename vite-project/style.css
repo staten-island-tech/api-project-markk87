@@ -1,5 +1,18 @@
 #result {
-  margin: 2px 2px 2px 2px;
+  font-size: 3rem;
+  margin-top: 5%;
+  margin-right: 70%;
   border: 2.5px solid black;
-  display: inline;
+  display: block;
+}
+
+#usdToCurrencyForm {
+  font-size: 1.4rem;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  border: 3px solid red;
+  display: block;
+  margin-right: 54%;
+
+
+
 }

@@ -1,21 +1,11 @@
 import { gsap } from "gsap";
 
-gsap.from
 
-// async function getData (URL) {
-//   try {
-//     const response = await fetch(URL);
+gsap.from('#result', {duration: 2, x: '-750%', ease: 'elast'});
+gsap.from('#usdToCurrencyForm', {duration: 3, y: '-200%', ease: 'expo'})
 
-//     console.log(response);
 
-//     const data = await response.json();
-//     console.log(data);
-//   } catch (error) {
-//     console.log("Nope.")
-//   }
-// }
 
-// getData(URL);
 
 async function convertUSD() {
   const usdAmount = document.getElementById('usdAmount').value;
@@ -59,7 +49,20 @@ document.getElementById('currencyCode').value = '';
 
 
 
+// async function getData (URL) {
+//   try {
+//     const response = await fetch(URL);
 
+//     console.log(response);
+
+//     const data = await response.json();
+//     console.log(data);
+//   } catch (error) {
+//     console.log("Nope.")
+//   }
+// }
+
+// getData(URL);
 
 
 // const URL = `https://data.cityofnewyork.us/resource/nc67-uf89.json` //camera violations
@@ -129,4 +132,3 @@ document.getElementById('currencyCode').value = '';
 //   e.preventDefault();
 //   const buttonClick = 
 // })
-
