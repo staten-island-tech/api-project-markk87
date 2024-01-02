@@ -35,3 +35,10 @@
   transition: all 0.3s ease-out;
   box-shadow: 2px 2px 2px black;
 }
+
+h1 {
+  border: 2px solid black;
+  display: inline-block;
+  border-radius: 13px;
+
+}

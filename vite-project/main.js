@@ -1,7 +1,7 @@
 import { gsap } from "gsap";
 
-
-gsap.from('#result', {duration: 2, x: '-750%', ease: 'elast'});
+gsap.from('#heading', {delay: 2, duration: 1.5, y: '-800%', ease: "expo" });
+gsap.from('#result', {duration: 1, x: '-750%', ease: 'elastic', delay: 1});
 gsap.from('#usdToCurrencyForm', {duration: 3, y: '-200%', ease: 'expo'});
 
 
