@@ -17,7 +17,18 @@ async function convertUSD() {
   try {
     const response = await fetch(apiUrl);
     const data = await response.json();
-
+    let i = 0
+    function result(){
+      Object.entries(data.rates).forEach((el) =>{
+        console.log(el)
+        el.forEach((item)=>{
+          console.log(item)
+        })
+      })
+    } 
+    result()
+    // console.log(data.rates)
+     //document.querySelector("#currencyCode").insertAdjacentHTML('beforeend', `<option value=${el}>fart</option>`))
     
 
     if (data.result === 'success') {
@@ -39,10 +50,10 @@ async function convertUSD() {
     }
   }
 }
-
+convertUSD();
 document.querySelector(".button").addEventListener("click", function(event) {
   event.preventDefault();
-  convertUSD();
+  
 })
 
 document.getElementById('currencyCode').value = '';
