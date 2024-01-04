@@ -5,41 +5,44 @@ gsap.from('#result', {duration: 1, x: '-750%', ease: 'elastic', delay: 1});
 gsap.from('#usdToCurrencyForm', {duration: 3, y: '-200%', ease: 'expo'});
 
 
+const DOMSelectors = {
+  selector: document.querySelector("#currencyCode")
+}
 
-// async function getGraphData() {
-//   const newData = `https://rest.coinapi.io/v1/exchangerate/history/periods?api_key=6C817A9E-1125-44E5-8280-FE18857B5B51`
-//   try {
-//     const newDataResponse = await fetch(newData);
-//     console.log(newDataResponse);
-//     const poop = await newDataResponse.json();
-//     console.log(poop)
-//   } catch (error) {
+function dataHolder() {
+  const apiUrl = `https://open.er-api.com/v6/latest/USD?apikey=`;
+  makeOptions(apiUrl);
+  convertUSD(apiUrl);
 
-//   }
-// }
-
-// getGraphData();
+}
 
 
 
+function makeOptions(apiUrl) {
+  
+  DOMSelectors.selector.insertAdjacentHTML("beforeend", `<option value=${data.rates}>${data.rates}</option>`)
+}
 
-async function convertUSD() {
+
+
+
+async function convertUSD(apiUrl) {
   const usdAmount = document.getElementById('usdAmount').value;
-  const currencyCode = document.getElementById('currencyCode').value;
+  console.log(usdAmount)
+  const currencyCode = document.getElementById('currencyCode');
+  
 
   
-  const apiUrl = `https://open.er-api.com/v6/latest/USD?apikey=`;
-
+  
   try {
     const response = await fetch(apiUrl);
     const data = await response.json();
-
     // let i = 0
     // function result(){
     //   Object.entries(data.rates).forEach((el) =>{
-    //     console.log(el)
+    //     //console.log(el)
     //     el.forEach((item)=>{
-    //       console.log(item)
+    //       //console.log(item)
     //     })
     //   })
     // } 
@@ -49,23 +52,29 @@ async function convertUSD() {
     
 
     if (data.result === 'success') {
-      const exchangeRate = data.rates[currencyCode];
+      console.log('Data Rates:', data.rates);
+      const exchangeRate = data.rates[currencyCode.value];
+      console.log('Exchange Rate:', exchangeRate);
       const convertedAmount = (usdAmount * exchangeRate).toFixed(2); // this should round the number to 2 decimal places so ppl dont get a huge amount
-      document.getElementById('result').textContent = `${usdAmount} USD is approximately ${convertedAmount} ${currencyCode}`;
+      console.log(convertedAmount)
+      document.getElementById('result').textContent = `${usdAmount} USD is approximately ${convertedAmount} ${currencyCode.value}`;
       
-      const currencyCodes = Object.keys(data.rates);
-      const selectElement = document.getElementById('currencyCode');
+      // const currencyCodes = Object.keys(data.rates);
+      // const selectElement = document.getElementById('currencyCode');
 
       
-      selectElement.innerHTML = '';
+      // selectElement.innerHTML = '';
 
-      currencyCodes.forEach((code) => {
-        const option = document.createElement('option');
-        option.value = code;
-        option.textContent = code;
-        selectElement.appendChild(option);
-        console.log(option);
-      });
+      // currencyCodes.forEach((code) => {
+      //   selectElement.insertAdjacentHTML("beforeend",`<option value=${code}>${code.length}</option>`)
+      // })
+
+      // currencyCodes.forEach((code) => {
+      //   const option = document.createElement('option');
+      //   option.value = code;
+      //   option.textContent = code;
+      //   selectElement.appendChild(option);
+      // });
     } else {
       document.getElementById('result').textContent = 'Failed to fetch exchange rates. Please try again later.';
     }
@@ -80,9 +89,9 @@ async function convertUSD() {
     }
   }
 }
-convertUSD();
 document.querySelector(".button").addEventListener("click", function(event) {
   event.preventDefault();
+  convertUSD()
   
 })
 
