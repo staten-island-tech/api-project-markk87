@@ -13,14 +13,17 @@ function dataHolder() {
   const apiUrl = `https://open.er-api.com/v6/latest/USD?apikey=`;
   makeOptions(apiUrl);
   convertUSD(apiUrl);
-
+  console.log(apiUrl)
 }
 
+dataHolder();
 
 
-function makeOptions(apiUrl) {
+function makeOptions(apiUrl, exchangeRate) {
   
-  DOMSelectors.selector.insertAdjacentHTML("beforeend", `<option value=${data.rates}>${data.rates}</option>`)
+  DOMSelectors.selector.insertAdjacentHTML("beforeend", `<option value=${apiUrl.rates}>${apiUrl.rates}</option>`);
+  console.log(exchangeRate)
+
 }
 
 
@@ -29,6 +32,7 @@ function makeOptions(apiUrl) {
 async function convertUSD(apiUrl) {
   const usdAmount = document.getElementById('usdAmount').value;
   console.log(usdAmount)
+  
   const currencyCode = document.getElementById('currencyCode');
   
 
