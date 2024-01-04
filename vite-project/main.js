@@ -6,6 +6,22 @@ gsap.from('#usdToCurrencyForm', {duration: 3, y: '-200%', ease: 'expo'});
 
 
 
+// async function getGraphData() {
+//   const newData = `https://rest.coinapi.io/v1/exchangerate/history/periods?api_key=6C817A9E-1125-44E5-8280-FE18857B5B51`
+//   try {
+//     const newDataResponse = await fetch(newData);
+//     console.log(newDataResponse);
+//     const poop = await newDataResponse.json();
+//     console.log(poop)
+//   } catch (error) {
+
+//   }
+// }
+
+// getGraphData();
+
+
+
 
 async function convertUSD() {
   const usdAmount = document.getElementById('usdAmount').value;
@@ -17,16 +33,17 @@ async function convertUSD() {
   try {
     const response = await fetch(apiUrl);
     const data = await response.json();
-    let i = 0
-    function result(){
-      Object.entries(data.rates).forEach((el) =>{
-        console.log(el)
-        el.forEach((item)=>{
-          console.log(item)
-        })
-      })
-    } 
-    result()
+
+    // let i = 0
+    // function result(){
+    //   Object.entries(data.rates).forEach((el) =>{
+    //     console.log(el)
+    //     el.forEach((item)=>{
+    //       console.log(item)
+    //     })
+    //   })
+    // } 
+    // result()
     // console.log(data.rates)
      //document.querySelector("#currencyCode").insertAdjacentHTML('beforeend', `<option value=${el}>fart</option>`))
     
@@ -35,7 +52,20 @@ async function convertUSD() {
       const exchangeRate = data.rates[currencyCode];
       const convertedAmount = (usdAmount * exchangeRate).toFixed(2); // this should round the number to 2 decimal places so ppl dont get a huge amount
       document.getElementById('result').textContent = `${usdAmount} USD is approximately ${convertedAmount} ${currencyCode}`;
-  
+      
+      const currencyCodes = Object.keys(data.rates);
+      const selectElement = document.getElementById('currencyCode');
+
+      
+      selectElement.innerHTML = '';
+
+      currencyCodes.forEach((code) => {
+        const option = document.createElement('option');
+        option.value = code;
+        option.textContent = code;
+        selectElement.appendChild(option);
+        console.log(option);
+      });
     } else {
       document.getElementById('result').textContent = 'Failed to fetch exchange rates. Please try again later.';
     }
