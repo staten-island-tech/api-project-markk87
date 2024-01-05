@@ -5,7 +5,8 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js" defer></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js" defer></script>   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/ScrollTrigger.min.js" defer></script> 
     <title>Vite App</title>
     
     <script type="module" src="main.js" defer></script>
@@ -19,11 +20,6 @@
       
       <label for="currencyCode">Select currency:</label>
       <select id="currencyCode" required>
-        <!-- <option value="" selected disabled></option>
-        <option value="EUR">Euro (EUR)</option>
-        <option value="JPY">Japanese Yen (JPY)</option>
-        <option value="AED">United Arab Emirates Dirham (AED)</option>
-        <option value="RUB">Ruble (RUB)</option> -->
       </select>
   
       <button type="button" class="button">Convert</button>
@@ -31,6 +27,9 @@
     </form>
     <br>
     <p id="result">Answer will appear here</p>
+    <br>
+    <p class="loadText">Conversion Rates:</p>
+    <div id="convertFactors"></div>
   </body>
 </html>
 

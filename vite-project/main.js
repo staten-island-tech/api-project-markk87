@@ -1,84 +1,42 @@
 import { gsap } from "gsap";
+// import { ScrollTrigger } from "gsap";
 
 gsap.from('#heading', {delay: 2, duration: 1.5, y: '-800%', ease: "expo" });
 gsap.from('#result', {duration: 1, x: '-750%', ease: 'elastic', delay: 1});
-gsap.from('#usdToCurrencyForm', {duration: 3, y: '-200%', ease: 'expo'});
+gsap.from('#usdToCurrencyForm', {duration: 3, y: '-300%', ease: 'expo', delay: 1.5});
+gsap.from('#convertFactors', {duration: 1, x: '-500%', ease: 'expo', delay: 2});
+gsap.from('.loadText', {duration: 1, scale: 2, x: '-500%', ease:'expo', delay: 1.9});
 
 
-const DOMSelectors = {
-  selector: document.querySelector("#currencyCode")
-}
 
-function dataHolder() {
+
+
+async function api() {
   const apiUrl = `https://open.er-api.com/v6/latest/USD?apikey=`;
-  makeOptions(apiUrl);
-  convertUSD(apiUrl);
-  console.log(apiUrl)
-}
-
-dataHolder();
-
-
-function makeOptions(apiUrl, exchangeRate) {
-  
-  DOMSelectors.selector.insertAdjacentHTML("beforeend", `<option value=${apiUrl.rates}>${apiUrl.rates}</option>`);
-  console.log(exchangeRate)
-
-}
-
-
-
-
-async function convertUSD(apiUrl) {
-  const usdAmount = document.getElementById('usdAmount').value;
-  console.log(usdAmount)
-  
-  const currencyCode = document.getElementById('currencyCode');
-  
-
-  
-  
   try {
     const response = await fetch(apiUrl);
     const data = await response.json();
-    // let i = 0
-    // function result(){
-    //   Object.entries(data.rates).forEach((el) =>{
-    //     //console.log(el)
-    //     el.forEach((item)=>{
-    //       //console.log(item)
-    //     })
-    //   })
-    // } 
-    // result()
-    // console.log(data.rates)
-     //document.querySelector("#currencyCode").insertAdjacentHTML('beforeend', `<option value=${el}>fart</option>`))
-    
-
     if (data.result === 'success') {
-      console.log('Data Rates:', data.rates);
-      const exchangeRate = data.rates[currencyCode.value];
-      console.log('Exchange Rate:', exchangeRate);
-      const convertedAmount = (usdAmount * exchangeRate).toFixed(2); // this should round the number to 2 decimal places so ppl dont get a huge amount
-      console.log(convertedAmount)
-      document.getElementById('result').textContent = `${usdAmount} USD is approximately ${convertedAmount} ${currencyCode.value}`;
-      
-      // const currencyCodes = Object.keys(data.rates);
-      // const selectElement = document.getElementById('currencyCode');
+      document.querySelector(".button").addEventListener("click", function(event) {
+        event.preventDefault();
+        convertUSD(data)
+        
+      })
 
-      
-      // selectElement.innerHTML = '';
+      const conversionFactorsContainer = document.querySelector("#convertFactors");
+      Object.keys(data.rates).forEach((currency) => {
+      conversionFactorsContainer.insertAdjacentHTML("beforeend", `<p id="conversionFactors">${currency}: ${data.rates[currency]}</p>`);
+});
 
-      // currencyCodes.forEach((code) => {
-      //   selectElement.insertAdjacentHTML("beforeend",`<option value=${code}>${code.length}</option>`)
-      // })
-
-      // currencyCodes.forEach((code) => {
-      //   const option = document.createElement('option');
-      //   option.value = code;
-      //   option.textContent = code;
-      //   selectElement.appendChild(option);
-      // });
+      const currencyCodes = Object.keys(data.rates);
+      currencyCodes.forEach((code) => {
+        const option = document.createElement('option');
+        option.value = code;
+        option.textContent = code;
+        const codes = document.querySelector('#currencyCode')
+        codes.appendChild(option)
+        console.log(option);
+      });
     } else {
       document.getElementById('result').textContent = 'Failed to fetch exchange rates. Please try again later.';
     }
@@ -93,105 +51,22 @@ async function convertUSD(apiUrl) {
     }
   }
 }
-document.querySelector(".button").addEventListener("click", function(event) {
-  event.preventDefault();
-  convertUSD()
-  
-})
+api()
 
-document.getElementById('currencyCode').value = '';
-
-// document.getElementById('result').addEventListener("click", function() {
-//   e.preventDefault();
-//   gsap.fromTo('#result', {opacity: 1, x: '0%', scale: 1}, {duration: 2, opacity: 0, scale: 0} );
-// })
-
-
-
-
-
-
-
-// async function getData (URL) {
-//   try {
-//     const response = await fetch(URL);
-
-//     console.log(response);
-
-//     const data = await response.json();
-//     console.log(data);
-//   } catch (error) {
-//     console.log("Nope.")
-//   }
-// }
-
-// getData(URL);
-
-
-// const URL = `https://data.cityofnewyork.us/resource/nc67-uf89.json` //camera violations
-// const crashURL = `https://data.cityofnewyork.us/resource/bm4k-52h4.json` //vehicle thing a ma bob
-// const imageContainer = document.querySelector(".imageContainer");
-// const plateForm = document.getElementById("plateForm");
-// const seeMoreButton = document.querySelector("button");
-
-
-// const DOMSelectors = {
-//   button: document.querySelector("button")
-// }
-
-// async function getCrashData(crashURL) {
-//   try {
-//     const crashResponse = await fetch(crashURL);
-
-//     console.log(crashResponse);
-//     const crashData = await crashResponse.json();
-//     console.log(crashData);
-//     imageContainer.innerHTML = "";
+async function convertUSD(data) {
+  const usdAmount = document.getElementById('usdAmount').value;
+  console.log(usdAmount)
 
     
-//   } catch (error) {
-//     console.log("Sorry, it didnt work");
-//   }
-// }
+      const currencyCode = document.getElementById('currencyCode');
 
-// getCrashData();
-
-// async function getData(URL) {
-//    try {
-//      const response = await fetch(URL);
-      
-//      console.log(response);
-//     const data = await response.json();
-//      console.log(data);
-//      imageContainer.innerHTML = "";
-
-//     data.forEach(el => {
-//       const textEl = document.createElement("p");
-//       textEl.textContent = `Plate: ${el.plate}, Violation: ${el.violation}, Date: ${el.issue_date}`;
-//       imageContainer.appendChild(textEl);
-
-      
-//     });
-//   } catch (error) {
-//     console.log("Sorry, we could not find what you are looking for");
-//   }
-// }
-// getData(URL);
-
-// plateForm.addEventListener("submit", function (event) {
-//   event.preventDefault();
-//   const plateInput = document.getElementById("plateNumber").value;
-//   getData(`${URL}?plate=${plateInput}`);
-// });
+      console.log('Data Rates:', data.rates);
+      const exchangeRate = data.rates[currencyCode.value];
+      console.log('Exchange Rate:', exchangeRate);
+      const convertedAmount = (usdAmount * exchangeRate).toFixed(2); // this should round the number to 2 decimal places so ppl dont get a huge amount
+      document.getElementById('result').textContent = `${usdAmount} USD is approximately ${convertedAmount} ${currencyCode.value}`;
+    
+}
 
 
-// seeMoreButton.addEventListener("click", function(e) {
-//   e.preventDefault();
-//   const buttonClick = document.getElementById("plateNumber").value;
-//   getCrashData(`${crashURL}?`)
-// })
-
-// DOMSelectors.button.addEventListener("click", function(e){
-//   e.preventDefault();
-//   const buttonClick = 
-// })
+document.getElementById('currencyCode').value = '';
